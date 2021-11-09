@@ -18,19 +18,22 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: const Text('Despesas Pessoais'),
+          backgroundColor: Colors.purple,
         ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Container(
-              child: const Card(
-                color: Colors.purple,
-                child: Text('imagine um gráfico'),
-                elevation: 5,
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Container(
+                child: const Card(
+                  color: Colors.purple,
+                  child: Text('imagine um gráfico'),
+                  elevation: 5,
+                ),
               ),
-            ),
-            TransactionUser(),
-          ],
+              TransactionUser(),
+            ],
+          ),
         ));
   }
 }
