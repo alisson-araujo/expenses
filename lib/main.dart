@@ -25,14 +25,14 @@ class _MyHomePageState extends State<MyHomePage> {
   final _transactions = [
     Transaction(
       id: 't1',
-      title: 'Novo Tênis de Corrida',
-      value: 310.76,
+      title: 'Sapato',
+      value: 400.52,
       date: DateTime.now(),
     ),
     Transaction(
       id: 't2',
-      title: 'Conta de Luz',
-      value: 211.30,
+      title: 'Boleto',
+      value: 215.10,
       date: DateTime.now(),
     ),
   ];
@@ -63,10 +63,11 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Despesas Pessoais'),
+        title: const Text('Despesas Pessoais'),
+        backgroundColor: Colors.purple,
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.add),
+            icon: const Icon(Icons.add),
             onPressed: () => _openTransactionFormModal(context),
           ),
         ],
@@ -77,8 +78,8 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Container(
               width: double.infinity,
-              child: Card(
-                color: Colors.blue,
+              child: const Card(
+                color: Colors.purple,
                 child: Text('Gráfico'),
                 elevation: 5,
               ),
@@ -88,10 +89,10 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
+        backgroundColor: Colors.purple,
         onPressed: () => _openTransactionFormModal(context),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
