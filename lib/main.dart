@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 import './components/transactions_form.dart';
 import './components/transactions_list.dart';
+import './components/chart.dart';
 import 'models/transaction.dart';
 
 main() => runApp(ExpensesApp());
@@ -12,6 +13,9 @@ class ExpensesApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: MyHomePage(),
+      theme: ThemeData(
+        primarySwatch: Colors.purple,
+      ),
     );
   }
 }
@@ -27,15 +31,23 @@ class _MyHomePageState extends State<MyHomePage> {
       id: 't1',
       title: 'Sapato',
       value: 400.52,
-      date: DateTime.now(),
+      date: DateTime.now().subtract(Duration(days: 2)),
     ),
     Transaction(
       id: 't2',
       title: 'Boleto',
       value: 215.10,
-      date: DateTime.now(),
+      date: DateTime.now().subtract(Duration(days: 3)),
     ),
   ];
+
+  List<Transaction> get _recentTransactions{
+    return _transactions.where((tr){
+      return tr.date.isAfter(DateTime.now().subtract(
+        Duration(days: 7),
+      ));
+    }).toList();
+  }
 
   _addTransaction(String title, double value) {
     final newTransaction = Transaction(
@@ -63,10 +75,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
         title: const Text('Despesas Pessoais'),
-        backgroundColor: Colors.purple,
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.add),
@@ -78,21 +90,13 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Container(
-              width: double.infinity,
-              child: const Card(
-                color: Colors.purple,
-                child: Text('Gráfico'),
-                elevation: 5,
-              ),
-            ),
+            Chart(_recentTransactions),
             TransactionList(_transactions),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
-        backgroundColor: Colors.purple,
         onPressed: () => _openTransactionFormModal(context),
       ),
     );
