@@ -50,6 +50,7 @@ class _TransactionFormState extends State<TransactionForm> {
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             TextField(
               controller: titleController,
@@ -73,8 +74,8 @@ class _TransactionFormState extends State<TransactionForm> {
                 Expanded(
                   child: Text(
                     _selectedDate == DateTime.now()
-                      ? 'Data Selecionada: ${DateTime.now()}'
-                      : 'Data Selecinada: ${DateFormat('dd/MM/y').format(_selectedDate)}',
+                      ? 'Data do registro: ${DateTime.now()}'
+                      : 'Data do registro: ${DateFormat('dd/MM/y').format(_selectedDate)}',
                   ),
                 ),
                 TextButton(
@@ -91,7 +92,7 @@ class _TransactionFormState extends State<TransactionForm> {
                     backgroundColor: Colors.purple,
                   ),
                   child: const Text(
-                    'Nova Transação',
+                    'Registrar nova transação',
                     style: TextStyle(color: Colors.white),
                   ),
                   onPressed: _submitForm,
