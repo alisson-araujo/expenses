@@ -11,57 +11,47 @@ class TransactionList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 300,
-      child: ListView.builder(
-        itemCount: transactions.length,
-        itemBuilder: (ctx, index) {
-          final tr = transactions[index];
-          return Card(
-            child: Row(
-              children: <Widget>[
-                Container(
+      child: transactions.isEmpty
+          ? Column(
+              children: const [
+               Text('Nenhuma transação cadastrada!'),
+              ],
+            )
+          : ListView.builder(
+              itemCount: transactions.length,
+              itemBuilder: (ctx, index) {
+                final tr = transactions[index];
+                return Card(
+                  elevation: 5,
                   margin: const EdgeInsets.symmetric(
-                    horizontal: 15,
-                    vertical: 10,
+                    vertical: 8,
+                    horizontal: 8,
                   ),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Theme.of(context).primaryColor,
-                      width: 2,
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      radius: 30,
+                      child: Padding(
+                        padding: const EdgeInsets.all(6),
+                        child: FittedBox(
+                          child: Text('R\$${tr.value}'),
+                        ),
+                      ),
                     ),
-                  ),
-                  padding: const EdgeInsets.all(10),
-                  child: Text(
-                    'R\$ ${tr.value.toStringAsFixed(2)}',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Theme.of(context).primaryColor,
-                    ),
-                  ),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
+                    title: Text(
                       tr.title,
-                      style: const TextStyle(
-                        fontSize: 16,
+                      style: TextStyle(
+                        color: Theme.of(context).primaryColor,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Text(
+                    subtitle: Text(
                       DateFormat('d MMM y').format(tr.date),
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                      ),
                     ),
-                  ],
-                ),
-              ],
+                  ),
+                );
+              },
             ),
-          );
-        },
-      ),
     );
   }
 }
