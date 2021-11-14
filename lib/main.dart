@@ -28,8 +28,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _transactions = [];
 
-  List<Transaction> get _recentTransactions{
-    return _transactions.where((tr){
+  List<Transaction> get _recentTransactions {
+    return _transactions.where((tr) {
       return tr.date.isAfter(DateTime.now().subtract(
         const Duration(days: 7),
       ));
@@ -51,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Navigator.of(context).pop();
   }
 
-  _deleteTransaction(String id){
+  _deleteTransaction(String id) {
     setState(() {
       _transactions.removeWhere((tr) => tr.id == id);
     });
@@ -68,7 +68,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: AppBar(
         title: const Text('Despesas Pessoais'),

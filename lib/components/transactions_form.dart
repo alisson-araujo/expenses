@@ -33,13 +33,12 @@ class _TransactionFormState extends State<TransactionForm> {
       firstDate: DateTime(2021),
       lastDate: DateTime.now(),
     ).then((pickedDate) {
-      if(pickedDate == null){
+      if (pickedDate == null) {
         return;
       }
       setState(() {
         _selectedDate = pickedDate;
       });
-      
     });
   }
 
@@ -74,8 +73,8 @@ class _TransactionFormState extends State<TransactionForm> {
                 Expanded(
                   child: Text(
                     _selectedDate == DateTime.now()
-                      ? 'Data do registro: ${DateTime.now()}'
-                      : 'Data do registro: ${DateFormat('dd/MM/y').format(_selectedDate)}',
+                        ? 'Data do registro: ${DateTime.now()}'
+                        : 'Data do registro: ${DateFormat('dd/MM/y').format(_selectedDate)}',
                   ),
                 ),
                 TextButton(
