@@ -6,32 +6,34 @@ class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
   final void Function(String) onRemove;
 
-  TransactionList(this.transactions, this.onRemove);
+  const TransactionList(this.transactions, this.onRemove, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 450,
       child: transactions.isEmpty
-          ? Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                const Text(
-                  'Nenhuma transação cadastrada!',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
+          ? LayoutBuilder(builder: (ctx, constraints) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  const Text(
+                    'Nenhuma transação cadastrada!',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 100,
-                  child: Image.asset(
-                    'lib/assets/images/sleep.png',
-                    fit: BoxFit.cover,
+                  SizedBox(
+                    height: constraints.maxHeight * 0.5,
+                    child: Image.asset(
+                      'lib/assets/images/sleep.png',
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                ),
-              ],
-            )
+                ],
+              );
+            })
           : ListView.builder(
               itemCount: transactions.length,
               itemBuilder: (ctx, index) {
@@ -63,11 +65,25 @@ class TransactionList extends StatelessWidget {
                     subtitle: Text(
                       DateFormat('d MMM y').format(tr.date),
                     ),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.delete),
-                      color: Theme.of(context).errorColor,
-                      onPressed: () => onRemove(tr.id),
-                    ),
+                    trailing: MediaQuery.of(context).size.width > 480
+                        ? TextButton.icon(
+                            onPressed: () => onRemove(tr.id),
+                            label: Text(
+                              'Excluir',
+                              style: TextStyle(
+                                color: Theme.of(context).errorColor,
+                              ),
+                            ),
+                            icon: Icon(
+                              Icons.delete,
+                              color: Theme.of(context).errorColor,
+                            ),
+                          )
+                        : IconButton(
+                            icon: const Icon(Icons.delete),
+                            color: Theme.of(context).errorColor,
+                            onPressed: () => onRemove(tr.id),
+                          ),
                   ),
                 );
               },
